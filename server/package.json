@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "server for wp-x ",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,5 +15,8 @@
     "node"
   ],
   "author": "Abhinav",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
