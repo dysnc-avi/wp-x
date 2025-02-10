@@ -10,6 +10,7 @@ const signin = asyncHandler(async (req, res) => {
     const user = await prisma.user.findFirst({ where: { email: email } });
     let checkPass = await bcrypt.compare(password, user.password);
     if (user && checkPass) {
+      res.cookie("userId", `${user.id}`);
       const response = new ApiResponse(200, user.id);
       return res.json(response);
     } else if (user && !checkPass) {
@@ -20,6 +21,7 @@ const signin = asyncHandler(async (req, res) => {
       return res.json(response);
     }
   } catch (error) {
+    console.log(error);
     const response = new ApiError(500, error.message);
     return res.json(response);
   }

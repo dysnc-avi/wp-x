@@ -15,6 +15,7 @@ const signup = asyncHandler(async (req, res) => {
         password: hashedPassword,
       },
     });
+    res.cookie("userId", `${user.id}`);
     const response = new ApiResponse(200, user.id);
     return res.json(response);
   } catch (error) {
