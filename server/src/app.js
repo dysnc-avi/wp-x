@@ -1,5 +1,4 @@
 import express from "express";
-import userRouter from "./routes/user.router.js";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
@@ -9,7 +8,12 @@ dotenv.config();
 app.use(express.json({ limit: "16kb" }));
 app.use(cookieParser());
 
+//routes
+import userRouter from "./routes/user.router.js";
+import organisationRouter from "./routes/organisation.route.js";
+
 app.use("/user", userRouter);
+app.use("/organisation", organisationRouter);
 
 app.get("/", (req, res) => {
   res.json({
