@@ -1,13 +1,13 @@
-import asyncHandler from "../handlers/asyncHandler";
-import prisma from "../prisma";
+import asyncHandler from "../handlers/asyncHandler.js";
+import prisma from "../prisma.js";
 import bcrypt from "bcrypt";
-import ApiResponse from "../handlers/apiResponse";
-import ApiError from "../handlers/apiError";
+import ApiResponse from "../handlers/apiResponse.js";
+import ApiError from "../handlers/apiError.js";
 
 const signin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await prisma.user.findUnique({ where: { email: email } });
+    const user = await prisma.user.findFirst({ where: { email: email } });
     let checkPass = await bcrypt.compare(password, user.password);
     if (user && checkPass) {
       const response = new ApiResponse(200, user.id);
@@ -24,3 +24,5 @@ const signin = asyncHandler(async (req, res) => {
     return res.json(response);
   }
 });
+
+export default signin;

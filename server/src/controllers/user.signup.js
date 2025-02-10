@@ -4,12 +4,16 @@ import asyncHandler from "../handlers/asyncHandler.js";
 import prisma from "../prisma.js";
 import bcrypt from "bcrypt";
 
-const userSignup = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+const signup = asyncHandler(async (req, res) => {
+  const { fullName, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
-      data: { name, email, password: hashedPassword },
+      data: {
+        fullName: fullName,
+        email: email,
+        password: hashedPassword,
+      },
     });
     const response = new ApiResponse(200, user.id);
     return res.json(response);
@@ -19,4 +23,4 @@ const userSignup = asyncHandler(async (req, res) => {
   }
 });
 
-export default userSignup;
+export default signup;
