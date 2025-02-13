@@ -10,6 +10,16 @@ const getOrganisation = asyncHandler(async (req, res) => {
       where: {
         id: orgId,
       },
+      select: {
+        id: true,
+        name: true,
+        logoURL: true,
+        totalTasks: true,
+        createdAt: true,
+        updatedAt: true,
+        members: true,
+        workspaces: true,
+      },
     });
     let response = new ApiResponse(200, org);
     return res.json(response);
